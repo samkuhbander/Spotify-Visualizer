@@ -50,6 +50,7 @@ function App() {
     const [token, setToken] = useState("")
     const [user, setUser] = useState({})
 
+    /* Get token from Spotify */
     useEffect(() => {
         const hash = window.location.hash
         let token = window.localStorage.getItem("token")
@@ -64,6 +65,7 @@ function App() {
 
     }, [])
 
+    /* Remove login token */
     const logout = () => {
         setToken("")
         window.localStorage.removeItem("token")
@@ -81,6 +83,7 @@ function App() {
         setUser(data)
     }
 
+    //Show username if it is returned from the spotify api
     const renderUser = () => {
         getUser()
         return (
@@ -103,14 +106,14 @@ function App() {
                 <header className="App-header overlay">
                     <h1>Spotify Visualizer</h1>
                     {!token ?
+                        //Call the login function
                         <Fab variant="extended" color="primary" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
                             to Spotify </Fab>
                         : renderUser()}
                     <h3> Created by Sam Kuhbander</h3>
                 </header>
-                <Artists />
+                <Artists token={token} />
             </div>
-
         </ThemeProvider>
     );
 }
