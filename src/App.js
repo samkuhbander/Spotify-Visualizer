@@ -2,11 +2,13 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { createTheme } from '@mui/material/styles';
-import { Button, Fab, Box } from '@mui/material';
+import { Fab } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import Artists from './Components/Artists.js';
 import Record from './Videos/Record.mp4';
-
+import ArtistGraph from './Components/ArtistGraph.js';
+import Songs from './Components/Songs.js';
+import SongGraph from './Components/SongGraph.js';
 
 const theme = createTheme({
     palette: {
@@ -88,7 +90,7 @@ function App() {
         getUser()
         return (
             <div>
-                <h1>{user.display_name ? user.display_name : "Issue displaying username Spotify may be limiting requests"}</h1>
+                <h1>{user.display_name ? user.display_name : "Spotify may be limiting requests at this time"}</h1>
                 <br></br>
                 <Fab variant="extended" color="primary" onClick={logout}> Logout </Fab>
             </div>
@@ -112,7 +114,10 @@ function App() {
                         : renderUser()}
                     <h3> Created by Sam Kuhbander</h3>
                 </header>
-                <Artists token={token} />
+                {<Artists />}
+                {<ArtistGraph />}
+                {<Songs />}
+                {<SongGraph />}
             </div>
         </ThemeProvider>
     );
