@@ -2,13 +2,13 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { createTheme } from '@mui/material/styles';
-import { Fab } from '@mui/material';
+import { Button, Fab } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import Artists from './Components/Artists.js';
 import Record from './Videos/Record.mp4';
-import ArtistGraph from './Components/ArtistGraph.js';
 import Songs from './Components/Songs.js';
 import SongGraph from './Components/SongGraph.js';
+
 
 const theme = createTheme({
     palette: {
@@ -48,9 +48,12 @@ function App() {
     const REDIRECT_URI = "http://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
+    const SCOPE = "user-top-read"
 
     const [token, setToken] = useState("")
     const [user, setUser] = useState({})
+    const [artists, setArtists] = useState([])
+    const [songs, setSongs] = useState([])
 
     /* Get token from Spotify */
     useEffect(() => {
@@ -64,7 +67,6 @@ function App() {
         }
 
         setToken(token)
-
     }, [])
 
     /* Remove login token */
@@ -73,7 +75,6 @@ function App() {
         window.localStorage.removeItem("token")
     }
 
-
     //Get username from the spotify api
     const getUser = async () => {
         const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -81,20 +82,48 @@ function App() {
                 Authorization: `Bearer ${token}`
             }
         })
-
         setUser(data)
     }
 
-    //Show username if it is returned from the spotify api
-    const renderUser = () => {
-        getUser()
-        return (
-            <div>
-                <h1>{user.display_name ? user.display_name : "Spotify may be limiting requests at this time"}</h1>
-                <br></br>
-                <Fab variant="extended" color="primary" onClick={logout}> Logout </Fab>
-            </div>
-        )
+    //Update user info every time the token changes
+    useEffect(() => {
+        if (token) {
+            getUser()
+        }
+    }, [token])
+
+    //Get top 5 artists from the spotify api
+    const getTopArtists = async () => {
+        const { data } = await axios.get("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=5", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        setArtists(data.items)
+    }
+
+    //Render the artists component
+    const renderArtists = () => {
+        if (artists.length > 0) {
+            return <Artists artists={artists} />
+        }
+    }
+
+    //Get top 5 songs from the spotify api
+    const getTopSongs = async () => {
+        const { data } = await axios.get("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        setSongs(data.items)
+    }
+
+    //Render the songs component
+    const renderSongs = () => {
+        if (songs.length > 0) {
+            return <Songs songs={songs} />
+        }
     }
 
     return (
@@ -109,15 +138,20 @@ function App() {
                     <h1>Spotify Visualizer</h1>
                     {!token ?
                         //Call the login function
-                        <Fab variant="extended" color="primary" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
+                        <Fab variant="extended" color="primary" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login
                             to Spotify </Fab>
-                        : renderUser()}
+                        : <div>
+                            <h1>{user.display_name ? user.display_name : "Cannot get account at this time"}</h1>
+                            <br></br>
+                            <Fab variant="extended" color="primary" onClick={logout}> Logout </Fab>
+                        </div>}
+                        <Fab variant="extended" color="primary" onClick={getTopArtists}> Get Top Artists </Fab>
+                        <Fab variant="extended" color="primary" onClick={getTopSongs}> Get Top Songs </Fab>
                     <h3> Created by Sam Kuhbander</h3>
                 </header>
-                {<Artists />}
-                {<ArtistGraph />}
-                {<Songs />}
-                {<SongGraph />}
+                <br></br>
+                {renderArtists()}
+                {renderSongs()}
             </div>
         </ThemeProvider>
     );
