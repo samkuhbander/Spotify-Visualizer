@@ -1,8 +1,6 @@
 import styles from './Songs.css';
 import SongTile from './SongTile';
 import SongGraph from './SongGraph';
-import { Resizable } from 're-resizable';
-import ReactWordcloud from 'react-wordcloud';
 
 
 const words = []

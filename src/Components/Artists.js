@@ -2,15 +2,15 @@ import styles from './Artists.css';
 import ArtistTile from './ArtistTile';
 import ArtistGraph from './ArtistGraph';
 import ReactWordcloud from 'react-wordcloud';
-import { Resizable } from "re-resizable";
 
 //Genre array
 const words = []
 
 const options = {
-    fontSizes: [45, 50],
+    fontSizes: [35, 36],
     fontStyle: "normal",
     fontWeight: "normal",
+    fontFamily: "impact",
     padding: 2,
     spiral: "archimedean",
     transitionDuration: 1000,
@@ -37,15 +37,17 @@ function Artists(props) {
             </div>
             <ArtistGraph artists={props.artists} />
             <div className={styles} id="WordmapGradientArtist">
-                <h1> Your Artist Genre Wordcloud</h1>
+                <h1> Your Genre Word Cloud</h1>
                 <div>
-                    <div style={{ width: "80%", height: "100%", background: "white", margin: "auto"}}>
+                    <div style={{ width: "80%", height: "70vh", background: "white", margin: "auto", borderRadius: "20px"}}>
                         {props.artists.map((artist, index) => {
-                            if(words.indexOf (artist.genres[0]) == -1){
-                            words.push({ text: props.artists[index].genres[0], value: 100 })
+                            for (let i = 0; i < artist.genres.length; i++) {
+                                if (words.includes(props.artists[index].genres[i]) === false) {
+                                words.push({ text: props.artists[index].genres[i], value: 1 })
+                                }
                             }
                         })}
-                        <ReactWordcloud options={options} words={words} />
+                        <ReactWordcloud options={options} words={words}/>
                     </div>
                 </div>
             </div>

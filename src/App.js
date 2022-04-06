@@ -108,6 +108,7 @@ function App() {
         }
     }
 
+
     //Get top 5 songs from the spotify api
     const getTopSongs = async () => {
         const { data } = await axios.get("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5", {
@@ -140,21 +141,20 @@ function App() {
                         <Fab variant="extended" color="primary" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}&show_dialog=true`}>Login
                             to Spotify </Fab>
                         : <div>
-                            <h1>{user.display_name ? user.display_name : "Cannot get account at this time"}</h1>
+                            <h1>{user.display_name ? user.display_name : ""}</h1>
                             <br></br>
                             <Fab variant="extended" color="primary" onClick={logout}> Logout </Fab>
                         </div>}
                         <br></br>
-                        <div className="fab-group">
-                            <Fab variant="extended" color="primary" sx={{m:2}} onClick={getTopArtists}> Top Artists </Fab>
-                            <Fab variant="extended" color="primary" sx={{m:2}} onClick={getTopSongs}> Top Songs </Fab>
-                        </div>
+                        {token && 
+                        <Fab variant="extended" color="primary" onClick={() => { getTopArtists(); getTopSongs() }}> Get Your Data </Fab>
+    }
                         <br></br>
                     <h3> Created by Sam Kuhbander</h3>
                 </header>
                 <br></br>
-                {renderArtists()}
-                {renderSongs()}
+                {token && renderArtists()}
+                {token && renderSongs()}
             </div>
         </ThemeProvider>
     );
