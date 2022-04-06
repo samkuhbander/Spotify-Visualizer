@@ -2,12 +2,11 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { createTheme } from '@mui/material/styles';
-import { Button, Fab } from '@mui/material';
+import { Fab } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import Artists from './Components/Artists.js';
 import Record from './Videos/Record.mp4';
 import Songs from './Components/Songs.js';
-import SongGraph from './Components/SongGraph.js';
 
 
 const theme = createTheme({
@@ -71,8 +70,8 @@ function App() {
 
     /* Remove login token */
     const logout = () => {
-        setToken("")
         window.localStorage.removeItem("token")
+        setToken("")
     }
 
     //Get username from the spotify api
@@ -138,15 +137,19 @@ function App() {
                     <h1>Spotify Visualizer</h1>
                     {!token ?
                         //Call the login function
-                        <Fab variant="extended" color="primary" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login
+                        <Fab variant="extended" color="primary" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}&show_dialog=true`}>Login
                             to Spotify </Fab>
                         : <div>
                             <h1>{user.display_name ? user.display_name : "Cannot get account at this time"}</h1>
                             <br></br>
                             <Fab variant="extended" color="primary" onClick={logout}> Logout </Fab>
                         </div>}
-                        <Fab variant="extended" color="primary" onClick={getTopArtists}> Get Top Artists </Fab>
-                        <Fab variant="extended" color="primary" onClick={getTopSongs}> Get Top Songs </Fab>
+                        <br></br>
+                        <div className="fab-group">
+                            <Fab variant="extended" color="primary" sx={{m:2}} onClick={getTopArtists}> Top Artists </Fab>
+                            <Fab variant="extended" color="primary" sx={{m:2}} onClick={getTopSongs}> Top Songs </Fab>
+                        </div>
+                        <br></br>
                     <h3> Created by Sam Kuhbander</h3>
                 </header>
                 <br></br>

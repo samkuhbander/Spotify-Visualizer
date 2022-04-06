@@ -31,7 +31,7 @@ const ArtistGraph = (props) => {
 	}
 
 	return (
-		<div>
+		<div style={{paddingTop: "10vh", paddingBottom: "10vh"}}>
 			<CanvasJSChart options={options}
 			/* onRef={ref => this.chart = ref} */
 			/>
@@ -41,44 +41,3 @@ const ArtistGraph = (props) => {
 }
 
 export default ArtistGraph;
-
-
-
-
-
-// class StackedBarChart extends Component {
-// 	render() {
-// 		const options = {
-// 			animationEnabled: true,
-// 			theme: "light2",
-// 			title:{
-// 				text: "Popularity Score of Artists"
-// 			},
-// 			toolTip: {
-// 				shared: true
-// 			},
-// 			legend:{
-// 				cursor: "pointer",
-// 			},
-// 			data: [{
-// 				type: "stackedBar",
-// 				name: "Artist popularity score",
-// 				showInLegend: "true",
-// 				yValueFormatString: "#,##0",
-// 				dataPoints: [
-// 					{ label: "Artist 1", y: 20},
-// 				]
-// 			}]
-// 		}
-// 		return (
-// 			<div>
-// 				<CanvasJSChart options = {options}	
-// 					onRef={ref => this.chart = ref} 
-// 				/>
-// 				{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-// 			</div>
-// 		);
-// 	}
-// }
-
-// export default StackedBarChart;

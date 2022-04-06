@@ -31,7 +31,7 @@ const SongGraph = (props) => {
 	}
 
 	return (
-		<div>
+		<div style={{paddingTop: "10vh", paddingBottom: "10vh"}}>
 			<CanvasJSChart options={options}
 			/* onRef={ref => this.chart = ref} */
 			/>

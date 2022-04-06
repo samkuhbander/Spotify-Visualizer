@@ -29,7 +29,7 @@ function ArtistTile(props) {
                     <Grid item xs={12} sm container>
                         <Grid item xs container direction="column" spacing={2}>
                             <Grid item xs>
-                                <Typography variant="h2" color="text.secondary">
+                                <Typography variant="h3" color="text.secondary">
                                     {props.artist}
                                 </Typography>
                             </Grid>

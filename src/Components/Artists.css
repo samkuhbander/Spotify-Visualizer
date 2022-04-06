@@ -6,6 +6,14 @@
     padding: 2rem;
 }
 
+#WordmapGradientArtist {
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    min-height: 60vh;
+    margin-top: -1.5rem;
+    padding: 2rem;
+}
+
 #Artistgradient h1 {
     padding: 1.5rem
 }
