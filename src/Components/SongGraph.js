@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CanvasJSReact from './canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  
@@ -17,7 +17,7 @@ const SongGraph = (props) => {
 		},
 		data: [{
 			type: "stackedBar",
-			name: "Song popularity score",
+			name: "Songs Among Users",
 			showInLegend: "true",
 			yValueFormatString: "#,##0",
 			dataPoints: [

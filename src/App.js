@@ -44,7 +44,7 @@ const theme = createTheme({
 
 function App() {
     const CLIENT_ID = "75235d5523914e0e96b1d0b4faed4553"
-    const REDIRECT_URI = "https://superlative-phoenix-67b1a8.netlify.app"
+    const REDIRECT_URI = "http://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = "user-top-read"
@@ -126,6 +126,18 @@ function App() {
         }
     }
 
+    //Scroll Artistgradient into view
+    const scrollToArtists = () => {
+        //One second delay to allow the page to load
+        setTimeout(() => {
+        window.scrollTo({
+            top: window.innerHeight,
+            behavior: "smooth"
+        })
+        }, 1000)
+    }
+
+
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
@@ -147,8 +159,9 @@ function App() {
                         </div>}
                         <br></br>
                         {token && 
-                        <Fab variant="extended" color="primary" onClick={() => { getTopArtists(); getTopSongs() }}> Get Your Data </Fab>
-    }
+                            <div>
+                        <Fab variant="extended" color="primary" onClick={() => {getTopArtists(); getTopSongs(); scrollToArtists()}}> Get Your Data </Fab>
+                        </div>}
                         <br></br>
                     <h3> Created by Sam Kuhbander</h3>
                 </header>

@@ -7,29 +7,29 @@ import ButtonBase from '@mui/material/ButtonBase';
 const Img = styled('img')({
     margin: 'auto',
     display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    width: "15vw",
+    height: "15vw",
 });
 
 function SongTile(props) {
     return (
         <div>
             <Paper sx={{ p: 2, margin: 'auto', marginTop: 2, maxWidth: 500, flexGrow: 1 }}>
-                <Grid container spacing={2}>
+                <Grid container>
                     <Grid item>
                         <Typography variant="h5" component="h3">
                             {props.number}
                         </Typography>
                     </Grid>
-                    <Grid item>
-                        <ButtonBase sx={{ width: 128, height: 128 }}>
+                    <Grid item xs={5}>
+                        <ButtonBase>
                             <Img alt="complex" src={props.img} />
                         </ButtonBase>
                     </Grid>
-                    <Grid item xs={12} sm container>
+                    <Grid item xs={5} sm container>
                         <Grid item xs container direction="column" spacing={2}>
-                            <Grid item xs>
-                                <Typography variant="h4" color="text.secondary">
+                            <Grid item xs sx={{ overflow: 'auto' }}>
+                                <Typography gutterBottom variant="subtitle1">
                                     {props.song}
                                 </Typography>
                             </Grid>
