@@ -7,6 +7,7 @@ import { ThemeProvider } from '@emotion/react';
 import Artists from './Components/Artists.js';
 import Record from './Videos/Record.mp4';
 import Songs from './Components/Songs.js';
+import Footer from './Components/Footer';
 
 
 const theme = createTheme({
@@ -43,8 +44,8 @@ const theme = createTheme({
 })
 
 function App() {
-    const CLIENT_ID = "75235d5523914e0e96b1d0b4faed4553"
-    const REDIRECT_URI = "https://superlative-phoenix-67b1a8.netlify.app"
+    const CLIENT_ID = "75235d5523914e0e96b1d0b4faed4553" 
+    const REDIRECT_URI = "https://superlative-phoenix-67b1a8.netlify.app" //http://localhost:3000
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = "user-top-read"
@@ -148,7 +149,7 @@ function App() {
                 </div>
                 <header className="App-header overlay">
                     <h1>Spotify Visualizer</h1>
-                    {!token ?
+                    {!token || token === "" ?
                         //Call the login function
                         <Fab variant="extended" color="primary" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}&show_dialog=true`}>Login
                             to Spotify </Fab>
@@ -164,10 +165,12 @@ function App() {
                         </div>}
                         <br></br>
                     <h3> Created by Sam Kuhbander</h3>
+                    <p> Contact: kuhbandersam@gmail.com</p>
                 </header>
                 <br></br>
                 {token && renderArtists()}
                 {token && renderSongs()}
+               <Footer></Footer>
             </div>
         </ThemeProvider>
     );

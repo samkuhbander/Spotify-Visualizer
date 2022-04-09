@@ -39,15 +39,20 @@ function Artists(props) {
             <div className={styles} id="WordmapGradientArtist">
                 <h1> Your Genre Word Cloud</h1>
                 <div>
-                    <div style={{ width: "80%", height: "70vh", background: "white", margin: "auto", borderRadius: "20px"}}>
-                        {props.artists.map((artist, index) => {
-                            for (let i = 0; i < artist.genres.length; i++) {
-                                if (words.includes(props.artists[index].genres[i]) === false) {
-                                words.push({ text: props.artists[index].genres[i], value: 1 })
-                                }
-                            }
-                        })}
-                        <ReactWordcloud options={options} words={words}/>
+                    <div style={{ width: "80%", height: "70vh", background: "white", margin: "auto", borderRadius: "20px" }}>
+                        {
+                            //If word cloud is empty, then add the words to the array
+                            words.length === 0 ?
+                                props.artists.map((artist, index) => {
+                                    for (let i = 0; i < artist.genres.length; i++) {
+                                        if (words.includes(props.artists[index].genres[i]) === false) {
+                                            words.push({ text: props.artists[index].genres[i], value: 1 })
+                                        }
+                                    }
+                                })
+                                : null
+                        }
+                        <ReactWordcloud options={options} words={words} />
                     </div>
                 </div>
             </div>

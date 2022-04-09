@@ -17,7 +17,7 @@ const ArtistGraph = (props) => {
 		},
 		data: [{
 			type: "stackedBar",
-			name: "Artists Among Users",
+			name: "Score Among Users",
 			showInLegend: "true",
 			yValueFormatString: "#,##0",
 			dataPoints: [
