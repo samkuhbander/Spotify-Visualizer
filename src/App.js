@@ -143,7 +143,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <div className="App">
                 <div className="video-container">
-                    <video className='video' autoPlay loop muted>
+                    <video className='video' autoPlay loop muted playsinline>
                         <source src={Record} type='video/mp4' />
                     </video>
                 </div>
