@@ -60,6 +60,18 @@ function App() {
         const hash = window.location.hash
         let token = window.localStorage.getItem("token")
 
+        //Check if token is in local storage
+        if (token) {
+            setToken(token)
+        }
+
+        //Check if token is in hash
+        if (hash) {
+            token = hash.split("&")[0].split("=")[1]
+            setToken(token)
+            window.localStorage.setItem("token", token)
+        }
+
         if (!token && hash) {
             token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
             window.location.hash = ""
@@ -68,6 +80,8 @@ function App() {
 
         setToken(token)
     }, [])
+
+    
 
     /* Remove login token */
     const logout = () => {
@@ -83,6 +97,18 @@ function App() {
             }
         })
         setUser(data)
+    }
+
+    //Make sure token is valid and set 
+    const checkToken = async () => {
+        const { data } = await axios.get("https://api.spotify.com/v1/me", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        if (data.error) {
+            logout()
+        }
     }
 
     //Update user info every time the token changes
@@ -138,7 +164,6 @@ function App() {
         }, 1000)
     }
 
-
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
@@ -161,7 +186,7 @@ function App() {
                         <br></br>
                         {token && 
                             <div>
-                        <Fab variant="extended" color="primary" onClick={() => {getTopArtists(); getTopSongs(); scrollToArtists()}}> Get Your Data </Fab>
+                        <Fab variant="extended" color="primary" onClick={() => {checkToken(); getTopArtists(); getTopSongs(); scrollToArtists()}}> Get Your Data </Fab>
                         </div>}
                         <br></br>
                     <h3> Created by Sam Kuhbander</h3>
