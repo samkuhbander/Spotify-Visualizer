@@ -44,8 +44,8 @@ const theme = createTheme({
 })
 
 function App() {
-    const CLIENT_ID = "75235d5523914e0e96b1d0b4faed4553" 
-    const REDIRECT_URI = "https://superlative-phoenix-67b1a8.netlify.app" //http://localhost:3000
+    const CLIENT_ID = "38722807c67a45c2bbb14b8db7999b25" 
+    const REDIRECT_URI = "http://localhost:3000" //https://superlative-phoenix-67b1a8.netlify.app
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = "user-top-read"
@@ -63,7 +63,7 @@ function App() {
         if (!token && hash) {
             token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
             window.location.hash = ""
-            window.localStorage.setItem("token", token)
+            window.localStorage.setItem("token", token)   
         }
 
         setToken(token)
