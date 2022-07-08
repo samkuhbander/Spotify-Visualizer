@@ -32,7 +32,7 @@ function Artists(props) {
             <div className={styles} id="Artistgradient">
                 <h1>Your Top Artists This Month</h1>
                 {props.artists.map((artist, index) => {
-                    return <ArtistTile key={index} artist={props.artists[index].name} number={index + 1} img={props.artists[index].images[0].url} />
+                    return <ArtistTile key={index} artist={props.artists[index].name} number={index + 1} img={props.artists[index].images[0].url} url={props.artists[index].external_urls.spotify} />
                 })}
             </div>
             <ArtistGraph artists={props.artists} />

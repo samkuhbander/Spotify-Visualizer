@@ -23,7 +23,7 @@ function ArtistTile(props) {
                     </Grid>
                     <Grid item xs={5}>
                         <ButtonBase>
-                            <a href={`https://open.spotify.com/artist/${props.artist}`}>
+                            <a href={props.url}>
                                 <Img alt={props.artist} src={props.img} />
                             </a>
                         </ButtonBase>
