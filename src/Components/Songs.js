@@ -8,7 +8,7 @@ function Songs(props) {
             <div className={styles} id="Songgradient">
                 <h1>Your Top Songs This Month</h1>
                 {props.songs.map((song, index) => {
-                    return <SongTile key={index} song={props.songs[index].name} number={index+1} img={props.songs[index].album.images[0].url} />
+                    return <SongTile key={index} song={props.songs[index].name} number={index+1} img={props.songs[index].album.images[0].url} url = {props.songs[index].external_urls.spotify} />
                 })}
             </div>
             <SongGraph songs={props.songs} />

@@ -2,7 +2,6 @@ import { Paper } from '@mui/material';
 import { Typography } from '@mui/material';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import ButtonBase from '@mui/material/ButtonBase';
 
 const Img = styled('img')({
     margin: 'auto',
@@ -22,9 +21,9 @@ function SongTile(props) {
                         </Typography>
                     </Grid>
                     <Grid item xs={5}>
-                        <ButtonBase>
-                            <Img alt="complex" src={props.img} />
-                        </ButtonBase>
+                            <a href={props.url}>
+                                <Img alt={props.song} src={props.img} />
+                            </a>
                     </Grid>
                     <Grid item xs={5} sm container>
                         <Grid item xs container direction="column" spacing={2}>
