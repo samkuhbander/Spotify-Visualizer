@@ -45,7 +45,7 @@ const theme = createTheme({
 
 function App() {
     const CLIENT_ID = "38722807c67a45c2bbb14b8db7999b25" 
-    const REDIRECT_URI = "http://localhost:3000" //https://superlative-phoenix-67b1a8.netlify.app
+    const REDIRECT_URI = "https://superlative-phoenix-67b1a8.netlify.app" //http://localhost:3000
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = "user-top-read"
